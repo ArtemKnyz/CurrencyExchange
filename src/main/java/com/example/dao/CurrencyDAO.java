@@ -4,6 +4,9 @@ import com.example.model.Currency;
 import com.example.model.ExchangeRateCalculation;
 import com.example.model.ExchangeRateResponse;
 import com.example.util.DatabaseUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,8 +14,15 @@ import java.util.List;
 
 public class CurrencyDAO {
 
+    private static final Logger log = LoggerFactory.getLogger(CurrencyDAO.class);
+
+
     public List<Currency> getAllCurrencies() throws SQLException {
+
+        log.info("Fetching all currencies");
+
         String sql = "SELECT ID, Code, FullName, Sign FROM Currencies ORDER BY ID";
+
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
@@ -21,11 +31,18 @@ public class CurrencyDAO {
             while (rs.next()) {
                 currencies.add(mapCurrency(rs));
             }
+
+            log.info("Fetched {} currencies", currencies.size());
             return currencies;
+        } catch (SQLException e) {
+            log.error("Error fetching currencies", e);
+            throw e;
         }
     }
 
+
     public Currency getCurrencyByCode(String code) throws SQLException {
+        log.info("Fetching currency by code: {}", code);
         String sql = "SELECT ID, Code, FullName, Sign FROM Currencies WHERE UPPER(Code) = UPPER(?)";
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -38,6 +55,9 @@ public class CurrencyDAO {
     }
 
     public Currency addCurrency(String name, String code, String sign) throws SQLException {
+
+        log.info("Adding new currency: {} ({})", name, code);
+
         String sql = "INSERT INTO Currencies (Code, FullName, Sign) VALUES (?, ?, ?)";
         try (Connection conn = DatabaseUtil.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -47,6 +67,7 @@ public class CurrencyDAO {
             stmt.setString(3, sign);
 
             if (stmt.executeUpdate() > 0) {
+                log.info("Currency successfully added: {}", code);
                 try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         return new Currency(generatedKeys.getInt(1), code, name, sign);
@@ -82,6 +103,7 @@ public class CurrencyDAO {
     }
 
     public ExchangeRateResponse getExchangeRateByCodes(String fromCode, String toCode) throws SQLException {
+        log.info("Fetching exchange rate: {} -> {}", fromCode, toCode);
         String sql = """
                 SELECT 
                     er.Rate,
@@ -148,6 +170,8 @@ public class CurrencyDAO {
     }
 
     public ExchangeRateCalculation getConvertedAmount(String fromCode, String toCode, double amount) throws SQLException {
+        log.info("Converting {} from {} to {}", amount, fromCode, toCode);
+
         ExchangeRateResponse direct = getExchangeRateByCodes(fromCode, toCode);
         if (direct != null) {
             return createCalculation(direct.baseCurrency(), direct.targetCurrency(), direct.rate(), amount);
@@ -172,6 +196,7 @@ public class CurrencyDAO {
                 }
             }
         }
+
 
         return null;
     }
@@ -210,6 +235,7 @@ public class CurrencyDAO {
     }
 
     private ExchangeRateCalculation createCalculation(Currency from, Currency to, double rate, double amount) {
+
         return new ExchangeRateCalculation(from, to, rate, amount, rate * amount);
     }
 }

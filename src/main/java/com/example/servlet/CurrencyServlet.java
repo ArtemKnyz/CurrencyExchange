@@ -10,6 +10,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -17,6 +19,7 @@ import java.util.List;
 
 @WebServlet("/currencies")
 public class CurrencyServlet extends HttpServlet {
+    private static final Logger log = LoggerFactory.getLogger(CurrencyServlet.class);
 
     private final CurrencyDAO currencyDAO = new CurrencyDAO();
     private final ObjectMapper objectMapper = new ObjectMapper();
@@ -31,6 +34,7 @@ public class CurrencyServlet extends HttpServlet {
 
             resp.setStatus(HttpServletResponse.SC_OK);
             resp.getWriter().write(json);
+            log.info("Currency presents: {}", currencies);
 
         } catch (SQLException e) {
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
