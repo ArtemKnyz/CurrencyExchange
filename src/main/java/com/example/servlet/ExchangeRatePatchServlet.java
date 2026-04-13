@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-// Важно: отдельный URL, чтобы избежать конфликтов
 @WebServlet("/exchangeRates/patch/*")
 public class ExchangeRatePatchServlet extends HttpServlet {
 

@@ -45,7 +45,6 @@ public class ExchangeRateServlet extends HttpServlet {
         String targetCode = req.getParameter("targetCurrencyCode");
         String rateStr = req.getParameter("rate");
 
-        // Валидация
         if (baseCode == null || baseCode.trim().isEmpty() ||
                 targetCode == null || targetCode.trim().isEmpty() ||
                 rateStr == null || rateStr.trim().isEmpty()) {

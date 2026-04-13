@@ -42,12 +42,10 @@ public class CurrencyServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json;charset=UTF-8");
 
-        // Получаем параметры из формы
         String name = req.getParameter("name");
         String code = req.getParameter("code");
         String sign = req.getParameter("sign");
 
-        // Валидация
         if (name == null || name.trim().isEmpty() ||
                 code == null || code.trim().isEmpty() ||
                 sign == null || sign.trim().isEmpty()) {
@@ -64,7 +62,6 @@ public class CurrencyServlet extends HttpServlet {
                 return;
             }
 
-            // Добавляем новую валюту
             Currency newCurrency = currencyDAO.addCurrency(name, code, sign);
 
             if (newCurrency != null) {

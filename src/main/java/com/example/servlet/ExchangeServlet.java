@@ -28,7 +28,6 @@ public class ExchangeServlet extends HttpServlet {
         String to = req.getParameter("to");
         String amountStr = req.getParameter("amount");
 
-        // Валидация
         if (from == null || from.trim().isEmpty() ||
                 to == null || to.trim().isEmpty() ||
                 amountStr == null || amountStr.trim().isEmpty()) {
