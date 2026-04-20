@@ -1,15 +1,75 @@
-# currency-exchange-api
+# 💱 Currency Exchange API
 
-## Описание
-Веб-приложение для отображения и обмена валют
+REST API для управления валютами и расчёта обменных курсов.
 
-## Технологии
-- Java Servlets
-- Maven
+## 🚀 Возможности
+
+- Получение списка валют
+- Получение валюты по коду
+- Добавление новой валюты
+- Получение курсов валют
+- Конвертация между валютами (включая через USD)
+
+---
+
+## 🛠️ Технологии
+
+- Java 17
+- Jakarta Servlet
+- JDBC
 - SQLite
-- Logback
+- Jackson (JSON)
+- SLF4J + Logback (логирование)
+- Maven
 
-## Как запустить
-mvn clean install
+---
+
+## 🧠 Архитектура
+
+- **Servlet** — обработка HTTP-запросов
+- **DAO** — работа с базой данных
+- **Model (record)** — DTO
+- **Util** — подключение к БД
+
+---
+
+## 📡 API
+
+### Получить все валюты
+GET /currencies
+
+### Получить валюту по коду
+GET /currency/USD
+
+### Добавить валюту
+Параметры:
+- name
+- code
+- sign
+
+---
+
+### Конвертация валют
+GET /exchange?from=USD&to=EUR&amount=100
+
+### ▶ Запуск проекта
+mvn clean package
 mvn tomcat7:run
+
+## 📊 Логирование
+Используется SLF4J + Logback
+
+- логирование запросов
+- логирование ошибок
+- логирование бизнес-операций
+
+## Пример ответа:
+{
+  "baseCurrency": "USD",
+  "targetCurrency": "EUR",
+  "rate": 0.92,
+  "amount": 100,
+  "convertedAmount": 92
+}
+
 
