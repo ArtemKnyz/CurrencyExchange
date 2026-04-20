@@ -37,6 +37,8 @@ REST API для управления валютами и расчёта обме
 
 ### Получить все валюты
 GET /currencies
+<img width="390" height="367" alt="image" src="https://github.com/user-attachments/assets/66b6d73e-23fc-4b8f-ae9f-c9d4b5a4eb74" />
+
 
 ### Получить валюту по коду
 GET /currency/USD
