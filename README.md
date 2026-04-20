@@ -1,4 +1,4 @@
-# Currency Exchange
+# currency-exchange-api
 
 ## Описание
 Веб-приложение для отображения и обмена валют
