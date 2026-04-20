@@ -1,0 +1,85 @@
+#################################
+# Maven / Gradle
+#################################
+target/
+build/
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+#################################
+# Logs
+#################################
+logs/
+*.log
+catalina.out
+hs_err_pid*.log
+
+#################################
+# IntelliJ IDEA
+#################################
+.idea/
+*.iml
+out/
+
+#################################
+# Eclipse / STS
+#################################
+.classpath
+.project
+.settings/
+.factorypath
+.apt_generated
+.springBeans
+.sts4-cache
+
+#################################
+# NetBeans
+#################################
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+#################################
+# VS Code
+#################################
+.vscode/
+
+#################################
+# OS files
+#################################
+.DS_Store
+Thumbs.db
+
+#################################
+# Java / JVM
+#################################
+*.class
+
+#################################
+# Maven Wrapper (оставляем только jar)
+#################################
+!.mvn/wrapper/maven-wrapper.jar
+
+#################################
+# Optional: local config files
+#################################
+application-local.properties
+*.local.yml
+
+# Databases
+*.db
+*.sqlite
+
+# Database temp files
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Packages
+*.war
+*.jar
+
+# Env
+.env
