@@ -33,6 +33,19 @@ REST API для управления валютами и расчёта обме
 
 ---
 
+## 📁 Структура проекта
+
+src/
+├── main/
+│   ├── java/
+│   │   ├── servlet/     # Контроллеры
+│   │   ├── dao/         # Доступ к БД
+│   │   ├── model/       # DTO (records)
+│   │   └── util/        # Утилиты (DBConnection)
+│   └── resources/
+│       └── logback.xml  # Конфигурация логирования
+└── test/                # Юнит-тесты (в разработке)
+
 ## 📡 API
 
 ### Получить все валюты
@@ -56,6 +69,18 @@ GET /currency/USD
 ### Конвертация валют
 GET /exchange?from=USD&to=EUR&amount=100
 
+Пример:
+"http://localhost:8081/exchange?from=USD&to=EUR&amount=100"
+Ответ:
+{
+"baseCurrency": "USD",
+"targetCurrency": "EUR",
+"rate": 0.92,
+"amount": 100,
+"convertedAmount": 92
+}
+
+
 ### ▶ Запуск проекта
 mvn clean package
 mvn tomcat7:run
@@ -66,14 +91,5 @@ mvn tomcat7:run
 - логирование запросов
 - логирование ошибок
 - логирование бизнес-операций
-
-## Пример ответа:
-{
-  "baseCurrency": "USD",
-  "targetCurrency": "EUR",
-  "rate": 0.92,
-  "amount": 100,
-  "convertedAmount": 92
-}
 
 
