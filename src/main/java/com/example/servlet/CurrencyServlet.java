@@ -21,8 +21,16 @@ import java.util.List;
 public class CurrencyServlet extends HttpServlet {
     private static final Logger log = LoggerFactory.getLogger(CurrencyServlet.class);
 
-    private final CurrencyDAO currencyDAO = new CurrencyDAO();
+    private final CurrencyDAO currencyDAO;
     private final ObjectMapper objectMapper = new ObjectMapper();
+
+    public CurrencyServlet() {
+        this.currencyDAO = new CurrencyDAO();
+    }
+
+    CurrencyServlet(CurrencyDAO currencyDAO) {
+        this.currencyDAO = currencyDAO;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
