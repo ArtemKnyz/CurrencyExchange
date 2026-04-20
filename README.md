@@ -42,6 +42,8 @@ GET /currencies
 
 ### Получить валюту по коду
 GET /currency/USD
+<img width="401" height="173" alt="image" src="https://github.com/user-attachments/assets/eadb042b-55c3-4345-a2b3-4c59b04b3d7a" />
+
 
 ### Добавить валюту
 Параметры:
